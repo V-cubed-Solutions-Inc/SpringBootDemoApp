@@ -30,7 +30,7 @@ public class TodoController {
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		// Date - dd/MM/yyyy
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, false));
 	}
@@ -55,8 +55,19 @@ public class TodoController {
 
 	@RequestMapping(value = "/add-todo", method = RequestMethod.GET)
 	public String showAddTodoPage(ModelMap model) {
-		model.addAttribute("todo", new Todo(0, getLoggedInUserName(model),
-				"Default Desc", new Date(), false));
+		Date today = new Date();
+		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+		model.addAttribute(
+			"todo", 
+			new Todo(
+				0, getLoggedInUserName(model),
+				"Description", 
+				today, 
+				tomorrow, 
+				"Not Started", 
+				"Additional Notes"
+			)
+		);
 		return "todo";
 	}
 
@@ -99,8 +110,13 @@ public class TodoController {
 			return "todo";
 		}
 
-		service.addTodo(getLoggedInUserName(model), todo.getDesc(), todo.getTargetDate(),
-				false);
+		service.addTodo(
+			getLoggedInUserName(model), 
+			todo.getDescription(), 
+			todo.getStartDate(), 
+			todo.getEndDate(), 
+			todo.getNotes()
+		);
 		return "redirect:/list-todos";
 	}
 }

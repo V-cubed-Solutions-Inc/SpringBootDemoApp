@@ -2,30 +2,36 @@ package com.in28minutes.springboot.web.model;
 
 import java.util.Date;
 
-import javax.validation.constraints.Size;
-
 public class Todo {
     private int id;
     private String user;
-    
-    @Size(min=10, message="Enter at least 10 Characters...")
-    private String desc;
-
-    private Date targetDate;
-    private boolean isDone;
+    private String description;
+    private Date startDate;
+    private Date endDate;
+    private String status;
+    private String notes;
 
     public Todo() {
-    		super();
+    	super();
     }
     
-    public Todo(int id, String user, String desc, Date targetDate,
-            boolean isDone) {
+    public Todo(
+        int id, 
+        String user, 
+        String description, 
+        Date startDate,
+        Date endDate,
+        String status,
+        String notes
+    ) {
         super();
         this.id = id;
         this.user = user;
-        this.desc = desc;
-        this.targetDate = targetDate;
-        this.isDone = isDone;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+        this.notes = notes;
     }
 
     public int getId() {
@@ -44,28 +50,44 @@ public class Todo {
         this.user = user;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Date getTargetDate() {
-        return targetDate;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setTargetDate(Date targetDate) {
-        this.targetDate = targetDate;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public boolean isDone() {
-        return isDone;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public void setDone(boolean isDone) {
-        this.isDone = isDone;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     @Override
@@ -97,8 +119,8 @@ public class Todo {
     @Override
     public String toString() {
         return String.format(
-                "Todo [id=%s, user=%s, desc=%s, targetDate=%s, isDone=%s]", id,
-                user, desc, targetDate, isDone);
+                "Todo [id=%s, user=%s, description=%s, startDate=%s, endDate=%s, status=%s, notes=%s]", 
+                id, user, description, startDate, endDate, status, notes);
     }
 
 }

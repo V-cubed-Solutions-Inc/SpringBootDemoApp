@@ -15,11 +15,41 @@ public class TodoService {
     private static int todoCount = 3;
 
     static {
-        todos.add(new Todo(1, "in28Minutes", "Learn Spring MVC", new Date(),
-                false));
-        todos.add(new Todo(2, "in28Minutes", "Learn Struts", new Date(), false));
-        todos.add(new Todo(3, "in28Minutes", "Learn Hibernate", new Date(),
-                false));
+        Date today = new Date();
+		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+        todos.add(
+            new Todo(
+                1, 
+                "V-Cubed Solutions Inc.", 
+                "Learn Spring MVC", 
+                today, 
+                tomorrow,
+                "Not Started", 
+                "Additional Notes"
+            )
+        );
+        todos.add(
+            new Todo(
+                2, 
+                "V-Cubed Solutions Inc.", 
+                "Learn Hibernate", 
+                today, 
+                tomorrow,
+                "Not Started", 
+                "Additional Notes"
+            )
+        );
+        todos.add(
+            new Todo(
+                2, 
+                "V-Cubed Solutions Inc.", 
+                "Learn Maven", 
+                today, 
+                tomorrow,
+                "Not Started", 
+                "Additional Notes"
+            )
+        );
     }
 
     public List<Todo> retrieveTodos(String user) {
@@ -41,14 +71,40 @@ public class TodoService {
         return null;
     }
 
-    public void updateTodo(Todo todo){
-    		todos.remove(todo);
-    		todos.add(todo);
+    public void updateTodo(Todo todo) {
+    	todos.remove(todo);
+        Date today = new Date();
+        String status = "Not Started";
+        if (today.after(todo.getStartDate()) && today.before(todo.getEndDate())) status = "In Progress";
+        else if (today.after(todo.getEndDate())) status = "Due";
+        todo.setStatus(status);
+    	todos.add(todo);
     }
 
-    public void addTodo(String name, String desc, Date targetDate,
-            boolean isDone) {
-        todos.add(new Todo(++todoCount, name, desc, targetDate, isDone));
+    public void addTodo(
+        String name, 
+        String description, 
+        Date startDate, 
+        Date endDate, 
+        String notes
+    ) {
+        Date today = new Date();
+        String status = "Not Started";
+        if (today.after(startDate) && today.before(endDate)) status = "In Progress";
+        else if (today.equals(endDate)) status = "Due";
+        else if (today.after(endDate)) status = "Overdue";
+
+        todos.add(
+            new Todo(
+                ++todoCount, 
+                name, 
+                description, 
+                startDate, 
+                endDate, 
+                status, 
+                notes
+            )
+        );
     }
 
     public void deleteTodo(int id) {
