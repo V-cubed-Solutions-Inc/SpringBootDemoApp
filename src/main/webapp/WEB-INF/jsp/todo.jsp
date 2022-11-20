@@ -11,7 +11,7 @@
 
                 <fieldset class="form-group">
                     <form:label path="notes">Notes</form:label>
-                    <form:input path="notes" type="" class="form-control" required="required" />
+                    <form:input path="notes" type="text" class="form-control" required="required" />
                     <form:errors path="notes" cssClass="text-warning" />
                 </fieldset>
 

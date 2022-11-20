@@ -55,15 +55,13 @@ public class TodoController {
 
 	@RequestMapping(value = "/add-todo", method = RequestMethod.GET)
 	public String showAddTodoPage(ModelMap model) {
-		Date today = new Date();
-		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
 		model.addAttribute(
 			"todo", 
 			new Todo(
 				0, getLoggedInUserName(model),
 				"Description", 
-				today, 
-				tomorrow, 
+				new Date(), 
+				new Date(), 
 				"Not Started", 
 				"Additional Notes"
 			)
@@ -73,10 +71,6 @@ public class TodoController {
 
 	@RequestMapping(value = "/delete-todo", method = RequestMethod.GET)
 	public String deleteTodo(@RequestParam int id) {
-
-		if(id==1)
-			throw new RuntimeException("Something went wrong");
-		
 		service.deleteTodo(id);
 		return "redirect:/list-todos";
 	}

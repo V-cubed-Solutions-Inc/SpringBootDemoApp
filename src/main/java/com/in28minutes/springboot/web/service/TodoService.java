@@ -12,45 +12,7 @@ import com.in28minutes.springboot.web.model.Todo;
 @Service
 public class TodoService {
     private static List<Todo> todos = new ArrayList<Todo>();
-    private static int todoCount = 3;
-
-    static {
-        Date today = new Date();
-		Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
-        todos.add(
-            new Todo(
-                1, 
-                "V-Cubed Solutions Inc.", 
-                "Learn Spring MVC", 
-                today, 
-                tomorrow,
-                "Not Started", 
-                "Additional Notes"
-            )
-        );
-        todos.add(
-            new Todo(
-                2, 
-                "V-Cubed Solutions Inc.", 
-                "Learn Hibernate", 
-                today, 
-                tomorrow,
-                "Not Started", 
-                "Additional Notes"
-            )
-        );
-        todos.add(
-            new Todo(
-                2, 
-                "V-Cubed Solutions Inc.", 
-                "Learn Maven", 
-                today, 
-                tomorrow,
-                "Not Started", 
-                "Additional Notes"
-            )
-        );
-    }
+    private static int todoCount = 0;
 
     public List<Todo> retrieveTodos(String user) {
         List<Todo> filteredTodos = new ArrayList<Todo>();
@@ -73,10 +35,7 @@ public class TodoService {
 
     public void updateTodo(Todo todo) {
     	todos.remove(todo);
-        Date today = new Date();
-        String status = "Not Started";
-        if (today.after(todo.getStartDate()) && today.before(todo.getEndDate())) status = "In Progress";
-        else if (today.after(todo.getEndDate())) status = "Due";
+        String status = setTodoStatus(todo.getStartDate(), todo.getEndDate());
         todo.setStatus(status);
     	todos.add(todo);
     }
@@ -88,12 +47,7 @@ public class TodoService {
         Date endDate, 
         String notes
     ) {
-        Date today = new Date();
-        String status = "Not Started";
-        if (today.after(startDate) && today.before(endDate)) status = "In Progress";
-        else if (today.equals(endDate)) status = "Due";
-        else if (today.after(endDate)) status = "Overdue";
-
+        String status = setTodoStatus(startDate, endDate);
         todos.add(
             new Todo(
                 ++todoCount, 
@@ -115,5 +69,13 @@ public class TodoService {
                 iterator.remove();
             }
         }
+    }
+
+    public String setTodoStatus(Date startDate, Date endDate) {
+        Date today = new Date();
+        String status = "Not Started";
+        if (today.after(startDate) && today.before(endDate)) status = "In Progress";
+        else if (today.after(endDate)) status = "Due";
+        return status;
     }
 }
