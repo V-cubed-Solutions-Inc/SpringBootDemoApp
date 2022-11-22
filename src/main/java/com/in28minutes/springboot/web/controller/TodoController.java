@@ -2,9 +2,9 @@ package com.in28minutes.springboot.web.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.validation.Valid;
 
+import org.jboss.logging.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,20 @@ public class TodoController {
 
 	@Autowired
 	TodoService service;
+
+	private Boolean overtimeAllowed = false;
+
+	@RequestMapping(value = "/enable-overtime", method = RequestMethod.GET)
+	public String enableOvertime() {
+		overtimeAllowed = true;
+		return "user-management";
+	}
+
+	@RequestMapping(value = "/disable-overtime", method = RequestMethod.GET)
+	public String disableOvertime() {
+		overtimeAllowed = false;
+		return "user-management";
+	}
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -88,22 +103,45 @@ public class TodoController {
 
 		if (result.hasErrors()) {
 			return "todo";
-		}
+		}	
 
 		todo.setUser(getLoggedInUserName(model));
 
 		service.updateTodo(todo);
+		int dailyHours = service.retrieveDailyHours(getLoggedInUserName(model), todo.getDate());
+		int weeklyHours = service.retrieveWeeklyHours(getLoggedInUserName(model), todo.getDate());
+		if (dailyHours > 10 && !overtimeAllowed) {
+			ObjectError error = new ObjectError("hoursRequired","You already have 8 hours of work for the specified date and your manager doesn't allow you overtime.");
+			result.rejectValue(error.getObjectName(), error.getCode(), error.getDefaultMessage());
+		}
+		if (weeklyHours > 40 && !overtimeAllowed) {
+			ObjectError error = new ObjectError("hoursRequired","You already have 40 hours of work for the specified week and your manager doesn't allow you overtime.");
+			result.rejectValue(error.getObjectName(), error.getCode(), error.getDefaultMessage());
+		}
 
+		if (result.hasErrors()) {
+			return "todo";
+		}
+		
 		return "redirect:/list-todos";
 	}
 
 	@RequestMapping(value = "/add-todo", method = RequestMethod.POST)
 	public String addTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
-
+		int dailyHours = service.retrieveDailyHours(getLoggedInUserName(model), todo.getDate());
+		int weeklyHours = service.retrieveWeeklyHours(getLoggedInUserName(model), todo.getDate());
+		if (dailyHours + todo.getHoursRequired() > 10 && !overtimeAllowed) {
+			ObjectError error = new ObjectError("hoursRequired","You already have 10 hours of work for the specified date and your manager doesn't allow you overtime.");
+			result.rejectValue(error.getObjectName(), error.getCode(), error.getDefaultMessage());
+		}
+		if (weeklyHours + todo.getHoursRequired() > 40 && !overtimeAllowed) {
+			ObjectError error = new ObjectError("hoursRequired","You already have 40 hours of work for the specified week and your manager doesn't allow you overtime.");
+			result.rejectValue(error.getObjectName(), error.getCode(), error.getDefaultMessage());
+		}
 		if (result.hasErrors()) {
 			return "todo";
 		}
-
+		
 		service.addTodo(
 			getLoggedInUserName(model), 
 			todo.getDescription(), 

@@ -15,6 +15,7 @@ public class TodoService {
     private static int todoCount = 0;
 
     public List<Todo> retrieveTodos(String user) {
+        if (user.equals("DemoAdmin")) return todos;
         List<Todo> filteredTodos = new ArrayList<Todo>();
         for (Todo todo : todos) {
             if (todo.getUser().equalsIgnoreCase(user)) {
@@ -50,37 +51,37 @@ public class TodoService {
         String dayOfWeek = date.toString().substring(0, 3);
         if (dayOfWeek.equalsIgnoreCase("MON")) {
             dates.add(date);
-            dates.add(new Date(date.getTime() + 60*60*24*1));
-            dates.add(new Date(date.getTime() + 60*60*24*2));
-            dates.add(new Date(date.getTime() + 60*60*24*3));
-            dates.add(new Date(date.getTime() + 60*60*24*4));
+            dates.add(new Date(date.getTime() + 1000*60*60*24*1));
+            dates.add(new Date(date.getTime() + 1000*60*60*24*2));
+            dates.add(new Date(date.getTime() + 1000*60*60*24*3));
+            dates.add(new Date(date.getTime() + 1000*60*60*24*4));
         }
         else if (dayOfWeek.equalsIgnoreCase("TUE")) {
-            dates.add(new Date(date.getTime() - 60*60*24*1));
+            dates.add(new Date(date.getTime() - 1000*60*60*24*1));
             dates.add(date);
-            dates.add(new Date(date.getTime() + 60*60*24*1));
-            dates.add(new Date(date.getTime() + 60*60*24*2));
-            dates.add(new Date(date.getTime() + 60*60*24*3));
+            dates.add(new Date(date.getTime() + 1000*60*60*24*1));
+            dates.add(new Date(date.getTime() + 1000*60*60*24*2));
+            dates.add(new Date(date.getTime() + 1000*60*60*24*3));
         }
         else if (dayOfWeek.equalsIgnoreCase("WED")) {
-            dates.add(new Date(date.getTime() - 60*60*24*2));
-            dates.add(new Date(date.getTime() - 60*60*24*1));
+            dates.add(new Date(date.getTime() - 1000*60*60*24*2));
+            dates.add(new Date(date.getTime() - 1000*60*60*24*1));
             dates.add(date);
-            dates.add(new Date(date.getTime() + 60*60*24*1));
-            dates.add(new Date(date.getTime() + 60*60*24*2));
+            dates.add(new Date(date.getTime() + 1000*60*60*24*1));
+            dates.add(new Date(date.getTime() + 1000*60*60*24*2));
         }
         else if (dayOfWeek.equalsIgnoreCase("THU")) {
-            dates.add(new Date(date.getTime() - 60*60*24*3));
-            dates.add(new Date(date.getTime() - 60*60*24*2));
-            dates.add(new Date(date.getTime() - 60*60*24*1));
+            dates.add(new Date(date.getTime() - 1000*60*60*24*3));
+            dates.add(new Date(date.getTime() - 1000*60*60*24*2));
+            dates.add(new Date(date.getTime() - 1000*60*60*24*1));
             dates.add(date);
-            dates.add(new Date(date.getTime() + 60*60*24*1));
+            dates.add(new Date(date.getTime() + 1000*60*60*24*1));
         }
         else if (dayOfWeek.equalsIgnoreCase("FRI")) {
-            dates.add(new Date(date.getTime() - 60*60*24*4));
-            dates.add(new Date(date.getTime() - 60*60*24*3));
-            dates.add(new Date(date.getTime() - 60*60*24*2));
-            dates.add(new Date(date.getTime() - 60*60*24*1));
+            dates.add(new Date(date.getTime() - 1000*60*60*24*4));
+            dates.add(new Date(date.getTime() - 1000*60*60*24*3));
+            dates.add(new Date(date.getTime() - 1000*60*60*24*2));
+            dates.add(new Date(date.getTime() - 1000*60*60*24*1));
             dates.add(date);
         }
         return dates;

@@ -13,6 +13,10 @@ public class WelcomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showWelcomePage(ModelMap model) {
 		model.put("name", getLoggedinUserName());
+		model.addAttribute("overtime-checkbox", "false");
+		if (getLoggedinUserName().equals("DemoAdmin")) {
+			return "user-management";
+		}
 		return "welcome";
 	}
 
