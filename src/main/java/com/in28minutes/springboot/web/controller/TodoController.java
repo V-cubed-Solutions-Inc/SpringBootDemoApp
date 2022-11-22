@@ -29,8 +29,8 @@ public class TodoController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		// Date - dd/MM/yyyy
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		// Date - EEE, MMM d yyyy
+		SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d yyyy");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, false));
 	}
@@ -60,7 +60,7 @@ public class TodoController {
 			new Todo(
 				0, getLoggedInUserName(model),
 				"Description", 
-				new Date(), 
+				1,
 				new Date(), 
 				"Not Started", 
 				"Additional Notes"
@@ -107,8 +107,9 @@ public class TodoController {
 		service.addTodo(
 			getLoggedInUserName(model), 
 			todo.getDescription(), 
-			todo.getStartDate(), 
-			todo.getEndDate(), 
+			todo.getHoursRequired(),
+			todo.getDate(), 
+			todo.getStatus(), 
 			todo.getNotes()
 		);
 		return "redirect:/list-todos";

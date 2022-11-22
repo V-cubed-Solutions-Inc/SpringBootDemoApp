@@ -6,10 +6,10 @@
                 <thead>
                     <tr>
                         <th>Description</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
+                        <th>Date</th>
                         <th>Status</th>
                         <th>Notes</th>
+                        <th>Hours</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -19,13 +19,11 @@
                         <tr>
                             <td>${todo.description}</td>
                             <td>
-                                <fmt:formatDate value="${todo.startDate}" pattern="MM/dd/yyyy" />
-                            </td>
-                            <td>
-                                <fmt:formatDate value="${todo.endDate}" pattern="MM/dd/yyyy" />
+                                <fmt:formatDate value="${todo.date}" pattern="EEE, MMM d yyyy" />
                             </td>
                             <td>${todo.status}</td>
                             <td>${todo.notes}</td>
+                            <td>${todo.hoursRequired}</td>
                             <td><a type="button" class="btn btn-success" href="/update-todo?id=${todo.id}">Update</a></td>
                             <td><a type="button" class="btn btn-warning" href="/delete-todo?id=${todo.id}">Delete</a></td>
                         </tr>

@@ -16,15 +16,21 @@
                 </fieldset>
 
                 <fieldset class="form-group">
-                    <form:label path="startDate">Start Date</form:label>
-                    <form:input path="startDate" type="text" class="form-control" required="required" />
-                    <form:errors path="startDate" cssClass="text-warning" />
+                    <form:label path="status">Status</form:label>
+                    <form:input path="status" type="text" class="form-control" required="required" />
+                    <form:errors path="status" cssClass="text-warning" />
                 </fieldset>
 
                 <fieldset class="form-group">
-                    <form:label path="endDate">End Date</form:label>
-                    <form:input path="endDate" type="text" class="form-control" required="required" />
-                    <form:errors path="endDate" cssClass="text-warning" />
+                    <form:label path="hoursRequired">Hours Required</form:label>
+                    <form:input path="hoursRequired" type="text" class="form-control" required="required" />
+                    <form:errors path="hoursRequired" cssClass="text-warning" />
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <form:label path="date">Date</form:label>
+                    <form:input path="date" type="text" class="form-control" required="required" />
+                    <form:errors path="date" cssClass="text-warning" />
                 </fieldset>
 
                 <button type="submit" class="btn btn-success">Add</button>

@@ -6,8 +6,8 @@ public class Todo {
     private int id;
     private String user;
     private String description;
-    private Date startDate;
-    private Date endDate;
+    private int hoursRequired;
+    private Date date;
     private String status;
     private String notes;
 
@@ -19,8 +19,8 @@ public class Todo {
         int id, 
         String user, 
         String description, 
-        Date startDate,
-        Date endDate,
+        int hoursRequired,
+        Date date,
         String status,
         String notes
     ) {
@@ -28,10 +28,10 @@ public class Todo {
         this.id = id;
         this.user = user;
         this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.date = date;
         this.status = status;
         this.notes = notes;
+        this.hoursRequired = hoursRequired;
     }
 
     public int getId() {
@@ -58,20 +58,20 @@ public class Todo {
         this.description = description;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public int getHoursRequired() {
+        return hoursRequired;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public void setHoursRequired(int hoursRequired) {
+        this.hoursRequired = hoursRequired;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getStatus() {
@@ -119,8 +119,8 @@ public class Todo {
     @Override
     public String toString() {
         return String.format(
-                "Todo [id=%s, user=%s, description=%s, startDate=%s, endDate=%s, status=%s, notes=%s]", 
-                id, user, description, startDate, endDate, status, notes);
+                "Todo [id=%s, user=%s, description=%s, hoursRequired=%s, date=%s, status=%s, notes=%s]", 
+                id, user, description, hoursRequired, date, status, notes);
     }
 
 }
