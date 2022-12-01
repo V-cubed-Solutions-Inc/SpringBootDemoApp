@@ -1,0 +1,52 @@
+# IDEA
+.idea/
+out/
+output/
+**/build/
+
+**/gradle_build/
+*.iml
+**/*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+
+## Java
+# either the 3rd party diff or IDEA:
+*.java.orig
+
+# Package Files
+**/build/libs/*.jar
+*.war
+*.ear
+
+#Gradle
+.gradle
+*/.gradle
+
+# Maven
+log/
+target/
+
+# Inclusions
+!lib/**
+
+# Compiled Files
+*.class
+bin/
+build/
+/bin1/
+java/build/**
+
+# Logging
+*.log
+*.log.gz
+*.log-*.gz
+logs/
