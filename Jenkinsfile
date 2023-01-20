@@ -3,10 +3,13 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'mvn clean install'
-                sh 'mvn compile'
-                sh 'mvn package'
+//             Original build steps
+//                 sh 'mvn clean install'
+//                 sh 'mvn compile'
+//                 sh 'mvn package'
+                sh 'mvn clean source:jar com.qualityscroll.caas:jacov-maven-plugin:1.0.0-SNAPSHOT:setup compile package'
             }
         }
+
     }
 }
