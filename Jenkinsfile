@@ -8,7 +8,7 @@ pipeline {
 //                 sh 'mvn clean install'
 //                 sh 'mvn compile'
 //                 sh 'mvn package'
-                sh 'mvn -Dmaven.test.failure.ignore=true -DskipTests=true clean install source:jar com.qualityscroll.caas:jacov-maven-plugin:1.0.0-SNAPSHOT:setup compile package'
+                sh 'mvn -Dmaven.test.failure.ignore=true -DskipTests=true clean install source:jar "com.qualityscroll.caas:jacov-maven-plugin:1.0.0-SNAPSHOT:setup" compile package'
             }
 
 // Kept in place for after built steps, (i.e., running ui test with blazemeter)
