@@ -4,6 +4,9 @@ out/
 output/
 **/build/
 
+# Cloud Cover
+COVER_LOGGING_PATH_IS_UNDEFINED
+
 **/gradle_build/
 *.iml
 **/*.iml
