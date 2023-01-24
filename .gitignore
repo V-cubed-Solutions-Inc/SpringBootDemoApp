@@ -53,3 +53,6 @@ java/build/**
 *.log.gz
 *.log-*.gz
 logs/
+
+# metadata
+/.metadata/
