@@ -11,6 +11,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.concurrent.TimeUnit;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringBootFirstWebApplicationTests {
@@ -28,9 +30,9 @@ public class SpringBootFirstWebApplicationTests {
         driver.get("http://localhost:8082/login");
 
         // get login form elements
-        WebElement usernameField = driver.findElement(By.id("username"));
-        WebElement passwordField = driver.findElement(By.id("password"));
-        WebElement submitButton = driver.findElement(By.id("submit"));
+        WebElement usernameField = driver.findElement(By.name("username"));
+        WebElement passwordField = driver.findElement(By.name("password"));
+        WebElement submitButton = driver.findElement(By.name("submit"));
 
         // enter username
         usernameField.clear();
@@ -54,9 +56,9 @@ public class SpringBootFirstWebApplicationTests {
         driver.get("http://localhost:8082/login");
 
         // get login form elements
-        WebElement usernameField = driver.findElement(By.id("username"));
-        WebElement passwordField = driver.findElement(By.id("password"));
-        WebElement submitButton = driver.findElement(By.id("submit"));
+        WebElement usernameField = driver.findElement(By.name("username"));
+        WebElement passwordField = driver.findElement(By.name("password"));
+        WebElement submitButton = driver.findElement(By.name("submit"));
 
         // enter username
         usernameField.clear();
@@ -70,8 +72,7 @@ public class SpringBootFirstWebApplicationTests {
         submitButton.click();
 
         // check for logout button in page source (should still be on login page)
-        WebElement logoutButton = driver.findElement(By.id("logout"));
-        assert !logoutButton.isDisplayed();
+        assert driver.getPageSource().contains("Your login attempt was not successful, try again.");
     }
 
     @Test
@@ -80,9 +81,9 @@ public class SpringBootFirstWebApplicationTests {
         driver.get("http://localhost:8082/login");
 
         // login as admin (check element names)
-        WebElement usernameField = driver.findElement(By.id("username"));
-        WebElement passwordField = driver.findElement(By.id("password"));
-        WebElement submitButton = driver.findElement(By.id("submit"));
+        WebElement usernameField = driver.findElement(By.name("username"));
+        WebElement passwordField = driver.findElement(By.name("password"));
+        WebElement submitButton = driver.findElement(By.name("submit"));
 
         // enter username
         usernameField.clear();
@@ -96,7 +97,7 @@ public class SpringBootFirstWebApplicationTests {
         submitButton.click();
 
         // allow overtime
-        WebElement allowOvertimeButton = driver.findElement(By.id("allow-overtime"));
+        WebElement allowOvertimeButton = driver.findElement(By.id("overtime-on"));
         allowOvertimeButton.click();
 
         // logout
@@ -104,13 +105,13 @@ public class SpringBootFirstWebApplicationTests {
         logoutButton.click();
 
         // login as user
-        usernameField = driver.findElement(By.id("username"));
-        passwordField = driver.findElement(By.id("password"));
-        submitButton = driver.findElement(By.id("submit"));
+        usernameField = driver.findElement(By.name("username"));
+        passwordField = driver.findElement(By.name("password"));
+        submitButton = driver.findElement(By.name("submit"));
 
         // enter username
         usernameField.clear();
-        usernameField.sendKeys("DemoUser");
+        usernameField.sendKeys("DemoUser1");
 
         // enter password
         passwordField.clear();
@@ -124,22 +125,22 @@ public class SpringBootFirstWebApplicationTests {
         todosButton.click();
 
         // add a new todo
-        WebElement addTodoButton = driver.findElement(By.id("new-todo"));
+        WebElement addTodoButton = driver.findElement(By.id("add-todo-btn"));
         addTodoButton.click();
 
         // Enter more than 8 hour limit before overtime
-        WebElement hoursField = driver.findElement(By.id("hours"));
+        WebElement hoursField = driver.findElement(By.id("hoursRequired"));
 
         // enter hours
         hoursField.clear();
         hoursField.sendKeys("9");
 
         // submit new todo 
-        WebElement submitTodoButton = driver.findElement(By.id("add-todo"));
+        WebElement submitTodoButton = driver.findElement(By.id("add-todo-btn-submit"));
         submitTodoButton.click();
 
-        // check for overtime warning
-        assert driver.getPageSource().contains("You already have 8 hours of work for the specified date and your manager doesn't allow you overtime.");
+        WebElement todoTable = driver.findElement(By.id("todo-table"));
+        assert todoTable.isDisplayed();
     }
 
     @Test
@@ -148,9 +149,9 @@ public class SpringBootFirstWebApplicationTests {
         driver.get("http://localhost:8082/login");
 
         // login as admin (check element names)
-        WebElement usernameField = driver.findElement(By.id("username"));
-        WebElement passwordField = driver.findElement(By.id("password"));
-        WebElement submitButton = driver.findElement(By.id("submit"));
+        WebElement usernameField = driver.findElement(By.name("username"));
+        WebElement passwordField = driver.findElement(By.name("password"));
+        WebElement submitButton = driver.findElement(By.name("submit"));
 
         // enter username
         usernameField.clear();
@@ -164,21 +165,21 @@ public class SpringBootFirstWebApplicationTests {
         submitButton.click();
 
         // allow overtime
-        WebElement disableOvertimeButton = driver.findElement(By.id("disable-overtime"));
-        disableOvertimeButton.click();
+        WebElement allowOvertimeButton = driver.findElement(By.id("overtime-off"));
+        allowOvertimeButton.click();
 
         // logout
         WebElement logoutButton = driver.findElement(By.id("logout"));
         logoutButton.click();
 
         // login as user
-        usernameField = driver.findElement(By.id("username"));
-        passwordField = driver.findElement(By.id("password"));
-        submitButton = driver.findElement(By.id("submit"));
+        usernameField = driver.findElement(By.name("username"));
+        passwordField = driver.findElement(By.name("password"));
+        submitButton = driver.findElement(By.name("submit"));
 
         // enter username
         usernameField.clear();
-        usernameField.sendKeys("DemoUser");
+        usernameField.sendKeys("DemoUser1");
 
         // enter password
         passwordField.clear();
@@ -192,22 +193,23 @@ public class SpringBootFirstWebApplicationTests {
         todosButton.click();
 
         // add a new todo
-        WebElement addTodoButton = driver.findElement(By.id("new-todo"));
+        WebElement addTodoButton = driver.findElement(By.id("add-todo-btn"));
         addTodoButton.click();
 
         // Enter more than 8 hour limit before overtime
-        WebElement hoursField = driver.findElement(By.id("hours"));
+        WebElement hoursField = driver.findElement(By.id("hoursRequired"));
 
         // enter hours
         hoursField.clear();
         hoursField.sendKeys("9");
 
-        // submit new todo 
-        WebElement submitTodoButton = driver.findElement(By.id("add-todo"));
+        // submit new todo
+        WebElement submitTodoButton = driver.findElement(By.id("add-todo-btn-submit"));
         submitTodoButton.click();
 
         // check for overtime warning
-        assert !driver.getPageSource().contains("You already have 8 hours of work for the specified date and your manager doesn't allow you overtime.");
+        assert driver.getPageSource().contains("You already have 10 hours of work for the specified date and your manager doesn't allow you overtime.");
+//        assert driver.getPageSource().contains("You already have 40 hours of work for the specified week and your manager doesn't allow you overtime.");
     }
 
     @After

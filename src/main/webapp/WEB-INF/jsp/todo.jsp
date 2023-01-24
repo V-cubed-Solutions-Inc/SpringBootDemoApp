@@ -33,7 +33,7 @@
                     <form:errors path="date" cssClass="text-warning" />
                 </fieldset>
 
-                <button type="submit" class="btn btn-success">Add</button>
+                <button id="add-todo-btn-submit" type="submit" class="btn btn-success">Add</button>
             </form:form>
         </div>
         <%@ include file="common/footer.jspf" %>
