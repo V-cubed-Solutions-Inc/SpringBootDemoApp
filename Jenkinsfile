@@ -25,6 +25,7 @@ pipeline {
         stage('Run') {
             steps {
                 bat 'D:/Jenkins/.jenkins/workspace/SpringDemo/run.bat'
+                currentBuild.result = 'SUCCESS'
             }
         }
         stage('Test') {
