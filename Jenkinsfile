@@ -24,16 +24,16 @@ pipeline {
         }
         stage('Run') {
             steps {
-                sh '/run.bat'
+                bat 'D:/Jenkins/.jenkins/workspace/SpringDemo/run.bat'
             }
         }
-        stage('Run Selenium Tests') {
+        stage('Test') {
             steps {
                 // commands to run Selenium tests
                 sh 'mvn test'
             }
         }
-        stage('Send Results to BlazeMeter') {
+        stage('Report') {
             steps {
                 // use the BlazeMeter Jenkins plugin to send test results
                 blazemeter apiKey: 'your_api_key', testId: 'your_test_id', resultsFile: 'path/to/test/results'
