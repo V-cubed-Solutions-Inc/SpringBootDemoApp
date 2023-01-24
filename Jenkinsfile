@@ -22,5 +22,23 @@ pipeline {
 //                 }
 //             }
         }
+        stage('Run') {
+            steps {
+                sh 'run.bat'
+            }
+        }
+        stage('Run Selenium Tests') {
+            steps {
+                // commands to run Selenium tests
+                sh 'mvn test'
+            }
+        }
+        stage('Send Results to BlazeMeter') {
+            steps {
+                // use the BlazeMeter Jenkins plugin to send test results
+                blazemeter apiKey: 'your_api_key', testId: 'your_test_id', resultsFile: 'path/to/test/results'
+            }
+        }
+
     }
 }
