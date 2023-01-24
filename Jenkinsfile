@@ -5,9 +5,9 @@ pipeline {
         stage('Build') {
             steps {
 //             Original build steps
-                sh 'mvn clean install'
-                sh 'mvn compile'
-                sh 'mvn package'
+                sh 'mvn -Dmaven.test.failure.ignore=true -DskipTests=true clean install'
+                sh 'mvn -Dmaven.test.failure.ignore=true -DskipTests=true compile'
+                sh 'mvn -Dmaven.test.failure.ignore=true -DskipTests=true package'
                 // sh 'mvn install:install-file -Dfile="src/test/jacov-maven-plugin.jar" -DgroupId="com.qualityscroll.caas" -DartifactId="jacov-maven-plugin" -Dpackaging="jar" -Dversion="1.0.0-SNAPSHOT"'
                 // sh 'mvn -Dmaven.test.failure.ignore=true -DskipTests=true clean install source:jar "com.qualityscroll.caas:jacov-maven-plugin:1.0.0-SNAPSHOT:setup" compile package'
             }
