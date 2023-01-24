@@ -11,12 +11,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.util.concurrent.TimeUnit;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringBootFirstWebApplicationTests {
     private WebDriver driver;
+    private String overtimeWarning = "You already have 10 hours of work for the specified date and your manager doesn't allow you overtime.";
 
     @Before
     public void setUp() {
@@ -26,194 +25,64 @@ public class SpringBootFirstWebApplicationTests {
 
     @Test
     public void testLoginSuccess() {
-        // retrieve login page
-        driver.get("http://localhost:8082/login");
-
-        // get login form elements
-        WebElement usernameField = driver.findElement(By.name("username"));
-        WebElement passwordField = driver.findElement(By.name("password"));
-        WebElement submitButton = driver.findElement(By.name("submit"));
-
-        // enter username
-        usernameField.clear();
-        usernameField.sendKeys("DemoAdmin");
-
-        // enter password
-        passwordField.clear();
-        passwordField.sendKeys("password");
-
-        // submit login form
-        submitButton.click();
-
-        // check for logout button in page source
-        WebElement logoutButton = driver.findElement(By.id("logout"));
-        assert logoutButton.isDisplayed();
+        login(false, true);
+        assert driver.findElement(By.id("logout")).isDisplayed();
     }
 
     @Test
     public void testLoginFailure() {
-        // retrieve login page
-        driver.get("http://localhost:8082/login");
-
-        // get login form elements
-        WebElement usernameField = driver.findElement(By.name("username"));
-        WebElement passwordField = driver.findElement(By.name("password"));
-        WebElement submitButton = driver.findElement(By.name("submit"));
-
-        // enter username
-        usernameField.clear();
-        usernameField.sendKeys("DemoAdmin");
-
-        // enter password
-        passwordField.clear();
-        passwordField.sendKeys("wrong_password");
-
-        // submit login form
-        submitButton.click();
-
-        // check for logout button in page source (should still be on login page)
+        login(false, false);
         assert driver.getPageSource().contains("Your login attempt was not successful, try again.");
     }
 
     @Test
-    public void testAllowOvertime() {
-        // retrieve login page
-        driver.get("http://localhost:8082/login");
-
-        // login as admin (check element names)
-        WebElement usernameField = driver.findElement(By.name("username"));
-        WebElement passwordField = driver.findElement(By.name("password"));
-        WebElement submitButton = driver.findElement(By.name("submit"));
-
-        // enter username
-        usernameField.clear();
-        usernameField.sendKeys("DemoAdmin");
-
-        // enter password
-        passwordField.clear();
-        passwordField.sendKeys("password");
-
-        // submit login form
-        submitButton.click();
-
-        // allow overtime
-        WebElement allowOvertimeButton = driver.findElement(By.id("overtime-on"));
-        allowOvertimeButton.click();
-
-        // logout
-        WebElement logoutButton = driver.findElement(By.id("logout"));
-        logoutButton.click();
-
-        // login as user
-        usernameField = driver.findElement(By.name("username"));
-        passwordField = driver.findElement(By.name("password"));
-        submitButton = driver.findElement(By.name("submit"));
-
-        // enter username
-        usernameField.clear();
-        usernameField.sendKeys("DemoUser1");
-
-        // enter password
-        passwordField.clear();
-        passwordField.sendKeys("password");
-
-        // submit login form
-        submitButton.click();
-
-        // go to todos page
-        WebElement todosButton = driver.findElement(By.id("todos"));
-        todosButton.click();
-
-        // add a new todo
-        WebElement addTodoButton = driver.findElement(By.id("add-todo-btn"));
-        addTodoButton.click();
-
-        // Enter more than 8 hour limit before overtime
-        WebElement hoursField = driver.findElement(By.id("hoursRequired"));
-
-        // enter hours
-        hoursField.clear();
-        hoursField.sendKeys("9");
-
-        // submit new todo 
-        WebElement submitTodoButton = driver.findElement(By.id("add-todo-btn-submit"));
-        submitTodoButton.click();
-
-        WebElement todoTable = driver.findElement(By.id("todo-table"));
-        assert todoTable.isDisplayed();
+    public void testEnableOvertime() {
+        overtime(true);
+        addTodo();
+        assert !driver.getPageSource().contains(overtimeWarning);
     }
 
     @Test
     public void testDisableOvertime() {
-        // retrieve login page
-        driver.get("http://localhost:8082/login");
-
-        // login as admin (check element names)
-        WebElement usernameField = driver.findElement(By.name("username"));
-        WebElement passwordField = driver.findElement(By.name("password"));
-        WebElement submitButton = driver.findElement(By.name("submit"));
-
-        // enter username
-        usernameField.clear();
-        usernameField.sendKeys("DemoAdmin");
-
-        // enter password
-        passwordField.clear();
-        passwordField.sendKeys("password");
-
-        // submit login form
-        submitButton.click();
-
-        // allow overtime
-        WebElement allowOvertimeButton = driver.findElement(By.id("overtime-off"));
-        allowOvertimeButton.click();
-
-        // logout
-        WebElement logoutButton = driver.findElement(By.id("logout"));
-        logoutButton.click();
-
-        // login as user
-        usernameField = driver.findElement(By.name("username"));
-        passwordField = driver.findElement(By.name("password"));
-        submitButton = driver.findElement(By.name("submit"));
-
-        // enter username
-        usernameField.clear();
-        usernameField.sendKeys("DemoUser1");
-
-        // enter password
-        passwordField.clear();
-        passwordField.sendKeys("password");
-
-        // submit login form
-        submitButton.click();
-
-        // go to todos page
-        WebElement todosButton = driver.findElement(By.id("todos"));
-        todosButton.click();
-
-        // add a new todo
-        WebElement addTodoButton = driver.findElement(By.id("add-todo-btn"));
-        addTodoButton.click();
-
-        // Enter more than 8 hour limit before overtime
-        WebElement hoursField = driver.findElement(By.id("hoursRequired"));
-
-        // enter hours
-        hoursField.clear();
-        hoursField.sendKeys("9");
-
-        // submit new todo
-        WebElement submitTodoButton = driver.findElement(By.id("add-todo-btn-submit"));
-        submitTodoButton.click();
-
-        // check for overtime warning
-        assert driver.getPageSource().contains("You already have 10 hours of work for the specified date and your manager doesn't allow you overtime.");
-//        assert driver.getPageSource().contains("You already have 40 hours of work for the specified week and your manager doesn't allow you overtime.");
+        overtime(false);
+        addTodo();
+        assert driver.getPageSource().contains(overtimeWarning);
     }
 
     @After
     public void tearDown() {
         driver.quit();
     }
+
+    // helper functions
+
+    private void login(Boolean isAdmin, Boolean success) {
+        driver.get("http://localhost:8082/login");
+        WebElement usernameField = driver.findElement(By.name("username"));
+        WebElement passwordField = driver.findElement(By.name("password"));
+        if (isAdmin) usernameField.sendKeys("DemoAdmin");
+        else usernameField.sendKeys("DemoUser1");
+        if (success) passwordField.sendKeys("password");
+        else passwordField.sendKeys("wrongpassword");
+        driver.findElement(By.name("submit")).click();
+    }
+
+    private void overtime(Boolean enable) {
+        login(true, true);
+        if (enable) driver.findElement(By.id("overtime-on")).click();
+        else driver.findElement(By.id("overtime-off")).click();
+        driver.findElement(By.id("logout")).click();
+    }
+
+    private void addTodo() {
+        login(false, true);
+        driver.findElement(By.id("todos")).click();
+        driver.findElement(By.id("add-todo-btn")).click();
+        WebElement hours = driver.findElement(By.id("hoursRequired"));
+        hours.clear();
+        hours.sendKeys("50");
+        driver.findElement(By.id("add-todo-btn-submit")).click();
+    }
 }
+
+
