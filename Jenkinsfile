@@ -22,12 +22,12 @@ pipeline {
 //                 }
 //             }
         }
-        stage('Run') {
-            steps {
-                bat 'D:/Jenkins/.jenkins/workspace/SpringDemo/run.bat'
-                currentBuild.result = 'SUCCESS'
-            }
-        }
+//         stage('Run') {
+//             steps {
+//                 bat 'D:/Jenkins/.jenkins/workspace/SpringDemo/run.bat'
+//                 currentBuild.result = 'SUCCESS'
+//             }
+//         }
         stage('Test') {
             steps {
                 // commands to run Selenium tests
