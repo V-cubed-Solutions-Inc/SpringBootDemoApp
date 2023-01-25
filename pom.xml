@@ -28,12 +28,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<!-- <exclusions>
+			<exclusions>
 				<exclusion>
 					<groupId>ch.qos.logback</groupId>
 					<artifactId>logback-classic</artifactId>
 				</exclusion>
-			</exclusions> -->
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -98,11 +98,11 @@
 		</dependency>
 
 		<!-- Required for Cloud COVER build-->
-		<!-- <dependency>
+		<dependency>
 			<groupId>com.qualityscroll.caas</groupId>
 			<artifactId>jacov-maven-plugin</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
-		</dependency> -->
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -118,6 +118,14 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<excludeDevtools>true</excludeDevtools>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>-javaagent:"D:\Program Files\Apache Software Foundation\Tomcat 10.0\lib\java-runtime.jar"</argLine>
 				</configuration>
 			</plugin>
 		</plugins>
