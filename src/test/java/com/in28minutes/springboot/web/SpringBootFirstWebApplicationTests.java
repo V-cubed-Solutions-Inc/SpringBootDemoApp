@@ -19,6 +19,10 @@ public class SpringBootFirstWebApplicationTests {
     private WebDriver driver;
     private String overtimeWarning = "You already have 10 hours of work for the specified date and your manager doesn't allow you overtime.";
 
+	private String protocol = "https";
+	private String serverHost = "www.blazedemo.com";
+	private String serverPort = "8082";
+
     @Before
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "src/test/driver/chromedriver.exe");
@@ -59,7 +63,14 @@ public class SpringBootFirstWebApplicationTests {
     // helper functions
 
     private void login(Boolean isAdmin, Boolean success) {
-        driver.get("http://localhost:8082/login");
+		String root;
+		if (this.protocol.equals("http")) {
+			root = String.format("%s://%s:%s", this.protocol, this.serverHost, this.serverPort);
+		} else {
+			root = String.format("%s://%s", this.protocol, this.serverHost);
+		}
+		
+		driver.get(String.format("%s/login", root));
         WebElement usernameField = driver.findElement(By.name("username"));
         WebElement passwordField = driver.findElement(By.name("password"));
         if (isAdmin) usernameField.sendKeys("DemoAdmin");
