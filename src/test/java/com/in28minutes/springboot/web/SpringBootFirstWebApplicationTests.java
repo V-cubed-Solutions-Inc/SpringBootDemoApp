@@ -4,24 +4,23 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringBootFirstWebApplication.class)
 @SpringBootTest
 public class SpringBootFirstWebApplicationTests {
+    private final String overtimeWarning = "You already have 10 hours of work for the specified date and your manager doesn't allow you overtime.";
+    private final String protocol = "https";
+    private final String serverHost = "www.blazedemo.com";
+    private final String serverPort = "8082";
     private WebDriver driver;
-    private String overtimeWarning = "You already have 10 hours of work for the specified date and your manager doesn't allow you overtime.";
-
-	private String protocol = "https";
-	private String serverHost = "www.blazedemo.com";
-	private String serverPort = "8082";
 
     @Before
     public void setUp() {
@@ -63,14 +62,14 @@ public class SpringBootFirstWebApplicationTests {
     // helper functions
 
     private void login(Boolean isAdmin, Boolean success) {
-		String root;
-		if (this.protocol.equals("http")) {
-			root = String.format("%s://%s:%s", this.protocol, this.serverHost, this.serverPort);
-		} else {
-			root = String.format("%s://%s", this.protocol, this.serverHost);
-		}
-		
-		driver.get(String.format("%s/login", root));
+        String root;
+        if (this.protocol.equals("http")) {
+            root = String.format("%s://%s:%s", this.protocol, this.serverHost, this.serverPort);
+        } else {
+            root = String.format("%s://%s", this.protocol, this.serverHost);
+        }
+
+        driver.get(String.format("%s/login", root));
         WebElement usernameField = driver.findElement(By.name("username"));
         WebElement passwordField = driver.findElement(By.name("password"));
         if (isAdmin) usernameField.sendKeys("DemoAdmin");

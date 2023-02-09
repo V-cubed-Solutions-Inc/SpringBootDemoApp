@@ -12,17 +12,17 @@ public class Todo {
     private String notes;
 
     public Todo() {
-    	super();
+        super();
     }
-    
+
     public Todo(
-        int id, 
-        String user, 
-        String description, 
-        int hoursRequired,
-        Date date,
-        String status,
-        String notes
+            int id,
+            String user,
+            String description,
+            int hoursRequired,
+            Date date,
+            String status,
+            String notes
     ) {
         super();
         this.id = id;
@@ -110,16 +110,13 @@ public class Todo {
             return false;
         }
         Todo other = (Todo) obj;
-        if (id != other.id) {
-            return false;
-        }
-        return true;
+        return id == other.id;
     }
 
     @Override
     public String toString() {
         return String.format(
-                "Todo [id=%s, user=%s, description=%s, hoursRequired=%s, date=%s, status=%s, notes=%s]", 
+                "Todo [id=%s, user=%s, description=%s, hoursRequired=%s, date=%s, status=%s, notes=%s]",
                 id, user, description, hoursRequired, date, status, notes);
     }
 

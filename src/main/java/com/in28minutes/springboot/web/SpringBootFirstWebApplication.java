@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("com.in28minutes.springboot.web")
 public class SpringBootFirstWebApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootFirstWebApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootFirstWebApplication.class, args);
+    }
 }
