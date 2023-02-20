@@ -17,8 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest
 public class SpringBootFirstWebApplicationTests {
     private final String overtimeWarning = "You already have 10 hours of work for the specified date and your manager doesn't allow you overtime.";
-    private final String protocol = "https";
-    private final String serverHost = "www.blazedemo.com";
+    private final String protocol = "http";
+    private final String serverHost = "127.0.0.1";
     private final String serverPort = "8082";
     private WebDriver driver;
 
