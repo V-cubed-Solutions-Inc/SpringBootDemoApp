@@ -25,11 +25,11 @@ pipeline {
 //             }
         }
 
-        stage ('Copy Build') {
-            steps {
-                sh 'xcopy D:\\Jenkins\\.jenkins\\workspace\\SpringDemo\\target\\ D:\\suresofttech\\sst\\demos\\SpringBootDemoApp\\target\\ /s /e /Y'
-            }
-        }
+//         stage ('Copy Build') {
+//             steps {
+//                 sh 'xcopy D:\\Jenkins\\.jenkins\\workspace\\SpringDemo\\target\\ D:\\suresofttech\\sst\\demos\\SpringBootDemoApp\\target\\ /s /e /Y'
+//             }
+//         }
 
 // Cannot run application in Jenkins build, this step next exits
 //         stage('Run') {
