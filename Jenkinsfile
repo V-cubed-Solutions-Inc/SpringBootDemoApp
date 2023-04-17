@@ -25,11 +25,16 @@ pipeline {
 //             }
         }
 
-        stage('Report') {
-            steps {
-                // use the BlazeMeter Jenkins plugin to send test results
-                blazemeter apiKey: '7b7bd39a4347e3bfc8e96ae4', testId: 'COVER-Login', resultsFile: '**/target/surefire-reports/**'
-            }
-        }
+         stage ('BlazeMeter test'){
+             blazeMeterTest credentialsId:'1451217',
+             serverUrl:'https://a.blazemeter.com',
+             testId:'COVERDemo-DisableOvertime',
+             notes:'',
+             sessionProperties:'',
+             jtlPath:'',
+             junitPath:'',
+             getJtl:false,
+             getJunit:false
+         }
     }
 }
