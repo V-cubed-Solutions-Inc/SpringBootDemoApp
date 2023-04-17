@@ -25,33 +25,19 @@ pipeline {
 //             }
         }
 
-//         stage ('Copy Build') {
-//             steps {
-//                 sh 'xcopy D:\\Jenkins\\.jenkins\\workspace\\SpringDemo\\target\\ D:\\suresofttech\\sst\\demos\\SpringBootDemoApp\\target\\ /s /e /Y'
-//             }
-//         }
-
-// Cannot run application in Jenkins build, this step next exits
-//         stage('Run') {
-//             steps {
-//                 bat 'D:/Jenkins/.jenkins/workspace/SpringDemo/run.bat'
-//                 currentBuild.result = 'SUCCESS'
-//             }
-//         }
-
 // Maven test not working with cover build
-//         stage('Test') {
-//             steps {
-//                 // commands to run Selenium tests
-//                 sh 'mvn test'
-//             }
-//         }
+        stage('Test') {
+            steps {
+                // commands to run Selenium tests
+                sh 'mvn test'
+            }
+        }
 
-//         stage('Report') {
-//             steps {
-//                 // use the BlazeMeter Jenkins plugin to send test results
-//                 blazemeter apiKey: '8ca0cf79e84242fad4380668', testId: 'CoverDemoTests', resultsFile: '**/target/surefire-reports/**'
-//             }
-//         }
+        stage('Report') {
+            steps {
+                // use the BlazeMeter Jenkins plugin to send test results
+                blazemeter apiKey: '8ca0cf79e84242fad4380668', testId: 'CoverDemoTests', resultsFile: '**/target/surefire-reports/**'
+            }
+        }
     }
 }

@@ -56,3 +56,6 @@ logs/
 
 # metadata
 /.metadata/
+
+# pytest
+venv
