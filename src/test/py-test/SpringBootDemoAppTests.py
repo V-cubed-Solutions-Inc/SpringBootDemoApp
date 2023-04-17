@@ -7,7 +7,7 @@ class SpringBootFirstWebApplicationTests:
     LOGIN_FAIL_TEXT = "Your login attempt was not successful, try again."
     OVERTIME_WARNING_TEXT = "You already have 10 hours of work for the specified date and your manager doesn't allow you overtime.";
 
-    def __init__(self, root="http://127.0.0.1:8082") -> None:
+    def __init__(self, root="https://music.v-cubedsolutions.com") -> None:
         self.driver = webdriver.Chrome()
         self.root = root
     
@@ -73,9 +73,9 @@ class SpringBootFirstWebApplicationTests:
 
         assert SpringBootFirstWebApplicationTests.OVERTIME_WARNING_TEXT in self.driver.page_source
 
-if __name__ == "__main__":
-    testRunner = SpringBootFirstWebApplicationTests()
-    testRunner.testLoginSuccess()
-    testRunner.testLoginFailure()
-    testRunner.testEnableOvertime()
-    testRunner.testDisableOvertime()
+# if __name__ == "__main__":
+#     testRunner = SpringBootFirstWebApplicationTests()
+#     testRunner.testLoginSuccess()
+#     testRunner.testLoginFailure()
+#     testRunner.testEnableOvertime()
+#     testRunner.testDisableOvertime()

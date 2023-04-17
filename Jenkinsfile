@@ -25,18 +25,10 @@ pipeline {
 //             }
         }
 
-// Maven test not working with cover build
-        stage('Test') {
-            steps {
-                // commands to run Selenium tests
-                sh 'mvn test'
-            }
-        }
-
         stage('Report') {
             steps {
                 // use the BlazeMeter Jenkins plugin to send test results
-                blazemeter apiKey: '8ca0cf79e84242fad4380668', testId: 'CoverDemoTests', resultsFile: '**/target/surefire-reports/**'
+                blazemeter apiKey: '7b7bd39a4347e3bfc8e96ae4', testId: 'COVER-Login', resultsFile: '**/target/surefire-reports/**'
             }
         }
     }
