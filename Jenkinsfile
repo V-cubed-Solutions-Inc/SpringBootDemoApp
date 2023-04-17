@@ -17,7 +17,7 @@ pipeline {
 
          stage ('BlazeMeter') {
             steps {
-                blazeMeterTest credentialsId:'1451217', serverUrl:'https://a.blazemeter.com', workspaceId:'1499451', testId: '12473941', notes:'', sessionProperties:'', jtlPath:'', junitPath:'', getJtl:false, getJunit:false
+                blazeMeterTest credentialsId:'1451217', serverUrl:'https://a.blazemeter.com', workspaceId:'1499451', testId: '12473941', notes:'Run DisableOvertime', sessionProperties:'', jtlPath:'', junitPath:'', getJtl:false, getJunit:false
             }
          }
     }
