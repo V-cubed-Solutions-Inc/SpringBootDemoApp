@@ -13,28 +13,12 @@ pipeline {
                 sh 'sh /opt/apache-maven-3.9.1-bin/apache-maven-3.9.1/bin/mvn install:install-file -Dfile="src/test/resources/jacov-maven-plugin.jar" -DgroupId="com.qualityscroll.caas" -DartifactId="jacov-maven-plugin" -Dpackaging="jar" -Dversion="1.0.0-SNAPSHOT"'
                 sh 'sh /opt/apache-maven-3.9.1-bin/apache-maven-3.9.1/bin/mvn -Dmaven.test.failure.ignore=true -DskipTests=true clean install source:jar "com.qualityscroll.caas:jacov-maven-plugin:1.0.0-SNAPSHOT:setup" compile package'
             }
-
-// Kept in place for after built steps, (i.e., running ui test with blazemeter)
-//             post {
-//                 // If Maven was able to run the tests, even if some of the test
-//                 // failed, record the test results and archive the jar file.
-//                 success {
-//                     junit '**/target/surefire-reports/TEST-*.xml'
-//                     archiveArtifacts 'target/*.jar'
-//                 }
-//             }
         }
 
-         stage ('BlazeMeter test'){
-             blazeMeterTest credentialsId:'1451217',
-             serverUrl:'https://a.blazemeter.com',
-             testId:'COVERDemo-DisableOvertime',
-             notes:'',
-             sessionProperties:'',
-             jtlPath:'',
-             junitPath:'',
-             getJtl:false,
-             getJunit:false
+         stage ('BlazeMeter') {
+            steps {
+                blazeMeterTest credentialsId:'1451217', serverUrl:'https://a.blazemeter.com', testId: 'COVERDemo-DisableOvertime', notes:'', sessionProperties:'', jtlPath:'', junitPath:'', getJtl:false, getJunit:false
+            }
          }
     }
 }
