@@ -13,11 +13,13 @@ pipeline {
                 sh 'sh /opt/apache-maven-3.9.1-bin/apache-maven-3.9.1/bin/mvn install:install-file -Dfile="src/test/resources/jacov-maven-plugin.jar" -DgroupId="com.qualityscroll.caas" -DartifactId="jacov-maven-plugin" -Dpackaging="jar" -Dversion="1.0.0-SNAPSHOT"'
                 sh 'sh /opt/apache-maven-3.9.1-bin/apache-maven-3.9.1/bin/mvn -Dmaven.test.failure.ignore=true -DskipTests=true clean install source:jar "com.qualityscroll.caas:jacov-maven-plugin:1.0.0-SNAPSHOT:setup" compile package'
             }
-        }
 
-        stage ('Deploy') {
-            steps {
-                ftpPublisher alwaysPublishFromMaster: false, continueOnError: false, failOnError: false, publishers: [[configName: 'VS2', transfers: [[asciiMode: false, cleanRemote: false, excludes: '', flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '\'${BUILD_NUMBER}_\'yyyyMMdd', remoteDirectorySDF: false, removePrefix: '/target/', sourceFiles: '/target/**']], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true]]
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    ftpPublisher alwaysPublishFromMaster: false, continueOnError: false, failOnError: false, publishers: [[configName: 'VS2', transfers: [[asciiMode: false, cleanRemote: false, excludes: '', flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '\'${BUILD_NUMBER}_\'yyyyMMdd', remoteDirectorySDF: false, removePrefix: '/target/', sourceFiles: '/target/**']], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true]]
+                }
             }
         }
 
