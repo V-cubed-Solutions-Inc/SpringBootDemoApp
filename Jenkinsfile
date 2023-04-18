@@ -18,7 +18,7 @@ pipeline {
                 // If Maven was able to run the tests, even if some of the test
                 // failed, record the test results and archive the jar file.
                 success {
-                    ftpPublisher masterNodeName: 'master', alwaysPublishFromMaster: false, continueOnError: false, failOnError: false, paramPublish:[parameterName:''], publishers: [[configName: 'VS2', transfers: [[asciiMode: false, cleanRemote: false, excludes: '', flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '\'${BUILD_NUMBER}_\'yyyyMMdd', remoteDirectorySDF: false, removePrefix: '/var/jenkins_home/workspace/COVER-Demo/target/', sourceFiles: '/var/jenkins_home/workspace/COVER-Demo/target/**']], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true]]
+                    ftpPublisher masterNodeName: 'master', alwaysPublishFromMaster: false, continueOnError: false, failOnError: false, paramPublish:[parameterName:''], publishers: [[configName: 'VS2', transfers: [[asciiMode: false, cleanRemote: false, excludes: '', flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '\'${BUILD_NUMBER}_\'yyyyMMdd', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*']], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true]]
                 }
             }
         }
