@@ -73,9 +73,10 @@ class SpringBootFirstWebApplicationTests:
 
         assert SpringBootFirstWebApplicationTests.OVERTIME_WARNING_TEXT in self.driver.page_source
 
-# if __name__ == "__main__":
-#     testRunner = SpringBootFirstWebApplicationTests()
-#     testRunner.testLoginSuccess()
-#     testRunner.testLoginFailure()
-#     testRunner.testEnableOvertime()
-#     testRunner.testDisableOvertime()
+
+if __name__ == "__main__":
+    testRunner = SpringBootFirstWebApplicationTests()
+    testRunner.testLoginSuccess()
+    testRunner.testLoginFailure()
+    testRunner.testEnableOvertime()
+    testRunner.testDisableOvertime()
