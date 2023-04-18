@@ -18,7 +18,7 @@ pipeline {
                 // If Maven was able to run the tests, even if some of the test
                 // failed, record the test results and archive the jar file.
                 success {
-                    ftpPublisher masterNodeName: 'master', alwaysPublishFromMaster: false, continueOnError: false, failOnError: false, paramPublish:[parameterName:''], publishers: [[configName: 'VS3', transfers: [[asciiMode: false, cleanRemote: false, excludes: '', flatten: false, makeEmptyDirs: true, noDefaultExcludes: true, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'target/*, target/**']], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true]]
+                    ftpPublisher masterNodeName: 'master', alwaysPublishFromMaster: false, continueOnError: false, failOnError: false, paramPublish:[parameterName:''], publishers: [[configName: 'VS2', transfers: [[asciiMode: false, cleanRemote: false, excludes: '', flatten: false, makeEmptyDirs: true, noDefaultExcludes: true, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'target/*, target/**']], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true]]
                 }
             }
         }
