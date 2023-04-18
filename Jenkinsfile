@@ -24,11 +24,12 @@ pipeline {
         }
 
          stage ('BlazeMeter') {
-//             steps {
+            steps {
+                sh 'echo \'paceholder\''
 //                 blazeMeterTest credentialsId:'1451217', serverUrl:'https://a.blazemeter.com', workspaceId:'1499451', testId: '12473998', notes:'Run AddTodo', sessionProperties:'', jtlPath:'', junitPath:'', getJtl:false, getJunit:false
 //                 blazeMeterTest credentialsId:'1451217', serverUrl:'https://a.blazemeter.com', workspaceId:'1499451', testId: '12473941', notes:'Run DisableOvertime', sessionProperties:'', jtlPath:'', junitPath:'', getJtl:false, getJunit:false
 //                 blazeMeterTest credentialsId:'1451217', serverUrl:'https://a.blazemeter.com', workspaceId:'1499451', testId: '12473872', notes:'Run Login', sessionProperties:'', jtlPath:'', junitPath:'', getJtl:false, getJunit:false
-//             }
+            }
          }
     }
 }
