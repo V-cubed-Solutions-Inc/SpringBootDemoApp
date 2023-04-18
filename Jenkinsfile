@@ -18,17 +18,17 @@ pipeline {
                 // If Maven was able to run the tests, even if some of the test
                 // failed, record the test results and archive the jar file.
                 success {
-                    ftpPublisher masterNodeName: 'master', alwaysPublishFromMaster: false, continueOnError: false, failOnError: false, paramPublish:[parameterName:''], publishers: [[configName: 'VS2', transfers: [[asciiMode: false, cleanRemote: false, excludes: '', flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '\'${BUILD_NUMBER}_\'yyyyMMdd', remoteDirectorySDF: false, removePrefix: '/target/', sourceFiles: '/target/**']], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true]]
+                    ftpPublisher masterNodeName: 'master', alwaysPublishFromMaster: false, continueOnError: false, failOnError: false, paramPublish:[parameterName:''], publishers: [[configName: 'VS2', transfers: [[asciiMode: false, cleanRemote: false, excludes: '', flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '\'${BUILD_NUMBER}_\'yyyyMMdd', remoteDirectorySDF: false, removePrefix: '/var/jenkins_home/workspace/COVER-Demo/target/', sourceFiles: '/var/jenkins_home/workspace/COVER-Demo/target/**']], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true]]
                 }
             }
         }
 
          stage ('BlazeMeter') {
-            steps {
-                blazeMeterTest credentialsId:'1451217', serverUrl:'https://a.blazemeter.com', workspaceId:'1499451', testId: '12473998', notes:'Run AddTodo', sessionProperties:'', jtlPath:'', junitPath:'', getJtl:false, getJunit:false
-                blazeMeterTest credentialsId:'1451217', serverUrl:'https://a.blazemeter.com', workspaceId:'1499451', testId: '12473941', notes:'Run DisableOvertime', sessionProperties:'', jtlPath:'', junitPath:'', getJtl:false, getJunit:false
-                blazeMeterTest credentialsId:'1451217', serverUrl:'https://a.blazemeter.com', workspaceId:'1499451', testId: '12473872', notes:'Run Login', sessionProperties:'', jtlPath:'', junitPath:'', getJtl:false, getJunit:false
-            }
+//             steps {
+//                 blazeMeterTest credentialsId:'1451217', serverUrl:'https://a.blazemeter.com', workspaceId:'1499451', testId: '12473998', notes:'Run AddTodo', sessionProperties:'', jtlPath:'', junitPath:'', getJtl:false, getJunit:false
+//                 blazeMeterTest credentialsId:'1451217', serverUrl:'https://a.blazemeter.com', workspaceId:'1499451', testId: '12473941', notes:'Run DisableOvertime', sessionProperties:'', jtlPath:'', junitPath:'', getJtl:false, getJunit:false
+//                 blazeMeterTest credentialsId:'1451217', serverUrl:'https://a.blazemeter.com', workspaceId:'1499451', testId: '12473872', notes:'Run Login', sessionProperties:'', jtlPath:'', junitPath:'', getJtl:false, getJunit:false
+//             }
          }
     }
 }
