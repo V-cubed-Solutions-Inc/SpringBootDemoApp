@@ -16,7 +16,9 @@ pipeline {
         }
 
         stage ('Deploy') {
-            ftpPublisher alwaysPublishFromMaster: false, continueOnError: false, failOnError: false, publishers: [[configName: 'VS2', transfers: [[asciiMode: false, cleanRemote: false, excludes: '', flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '\'${BUILD_NUMBER}_\'yyyyMMdd', remoteDirectorySDF: false, removePrefix: '/target/', sourceFiles: '/target/**']], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true]]
+            steps {
+                ftpPublisher alwaysPublishFromMaster: false, continueOnError: false, failOnError: false, publishers: [[configName: 'VS2', transfers: [[asciiMode: false, cleanRemote: false, excludes: '', flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '\'${BUILD_NUMBER}_\'yyyyMMdd', remoteDirectorySDF: false, removePrefix: '/target/', sourceFiles: '/target/**']], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true]]
+            }
         }
 
          stage ('BlazeMeter') {
