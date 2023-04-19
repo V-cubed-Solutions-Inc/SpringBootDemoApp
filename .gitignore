@@ -6,6 +6,7 @@ output/
 
 # Cloud Cover
 COVER_LOGGING_PATH_IS_UNDEFINED
+.cvlogs
 
 **/gradle_build/
 *.iml
