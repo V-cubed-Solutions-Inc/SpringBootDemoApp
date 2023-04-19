@@ -51,11 +51,10 @@ pipeline {
         stage ('BlazeMeter') {
             steps {
                 sh 'echo \'BlazeMeter\''
-
 //                 blazeMeterTest credentialsId: '1451217',
 //                     serverUrl: 'https://a.blazemeter.com',
 //                     workspaceId: '1606426',
-//                     testId: '12484988',
+//                     testId: '12485056',
 //                     notes: 'Run UI Tests',
 //                     sessionProperties: '',
 //                     jtlPath: '',
