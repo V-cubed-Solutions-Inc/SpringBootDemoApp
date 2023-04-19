@@ -5,14 +5,11 @@ pipeline {
         // COVER build steps
         stage ('Build') {
             steps {
-                // Add maven to PATH
-                sh 'export PATH=$PATH:/opt/apache-maven-3.9.1-bin/apache-maven-3.9.1/bin/'
-
                 // Install jacov maven plugin
-                sh 'mvn install:install-file -Dfile="src/test/resources/jacov-maven-plugin.jar" -DgroupId="com.qualityscroll.caas" -DartifactId="jacov-maven-plugin" -Dpackaging="jar" -Dversion="1.0.0-SNAPSHOT"'
+                sh 'sh /opt/apache-maven-3.9.1-bin/apache-maven-3.9.1/bin/mvn install:install-file -Dfile="src/test/resources/jacov-maven-plugin.jar" -DgroupId="com.qualityscroll.caas" -DartifactId="jacov-maven-plugin" -Dpackaging="jar" -Dversion="1.0.0-SNAPSHOT"'
 
                 // Build war file
-                sh 'mvn -Dmaven.test.failure.ignore=true -DskipTests=true clean install source:jar "com.qualityscroll.caas:jacov-maven-plugin:1.0.0-SNAPSHOT:setup" compile package'
+                sh 'sh /opt/apache-maven-3.9.1-bin/apache-maven-3.9.1/bin/mvn -Dmaven.test.failure.ignore=true -DskipTests=true clean install source:jar "com.qualityscroll.caas:jacov-maven-plugin:1.0.0-SNAPSHOT:setup" compile package'
             }
         }
 
@@ -55,8 +52,7 @@ pipeline {
             steps {
                 sh 'echo \'BlazeMeter\''
 
-//                 blazeMeterTest
-//                     credentialsId: '1451217',
+//                 blazeMeterTest credentialsId: '1451217',
 //                     serverUrl: 'https://a.blazemeter.com',
 //                     workspaceId: '1606426',
 //                     testId: '12484988',
