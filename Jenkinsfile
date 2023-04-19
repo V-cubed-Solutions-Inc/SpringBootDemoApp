@@ -19,8 +19,7 @@ pipeline {
         // Deploy build to server
         stage ('Deploy') {
             steps {
-                ftpPublisher
-                    masterNodeName: 'master',
+                ftpPublisher masterNodeName: 'master',
                     alwaysPublishFromMaster: false,
                     continueOnError: false,
                     failOnError: false,
