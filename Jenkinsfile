@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        python 'Python 3.9.6'
+    }
+
     stages {
         stage ('Check COVER Config') {
             steps {
@@ -56,7 +60,7 @@ pipeline {
         // Run function UI tests on app
         stage('UI Test') {
             steps {
-                sh 'apt install python3 -y'
+                sh 'python'
             }
         }
     }
