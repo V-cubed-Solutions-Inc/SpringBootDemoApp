@@ -4,9 +4,7 @@ pipeline {
     stages {
         stage ('Check COVER Config') {
             steps {
-                sh 'mkdir ~/.caas'
-                sh 'cp src/test/resources/certificate-key.caas ~/.caas/certificate-key.caas'
-                sh 'export CAAS_CONFIG_PATH /config/certificate-key.caas'
+                sh 'sh src/test/resources/check-cover.sh'
             }
         }
 
