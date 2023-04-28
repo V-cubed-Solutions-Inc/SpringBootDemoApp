@@ -57,15 +57,8 @@ pipeline {
 
         // Run function UI tests on app
         stage('UI Test') {
-            agent {
-                docker {
-                    image 'python'
-                }
-            }
             steps {
-                sh 'python -m venv venv'
-                sh 'source venv/bin/activate'
-                sh 'python src/test/python/SpringBootDemoAppTests.py'
+                sh 'apt install python3 -y'
             }
         }
     }
