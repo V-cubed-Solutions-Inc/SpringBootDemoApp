@@ -2,6 +2,14 @@ pipeline {
     agent any
 
     stages {
+        stage ('Check COVER Config') {
+            steps {
+                sh 'mkdir ~/.caas'
+                sh 'cp src/test/resources/certificate-key.caas ~/.caas/certificate-key.caas'
+                sh 'export CAAS_CONFIG_PATH /config/certificate-key.caas'
+            }
+        }
+
         // COVER build steps
         stage ('Build') {
             steps {
@@ -48,19 +56,16 @@ pipeline {
         }
 
         // Run function UI tests on app
-        stage ('BlazeMeter') {
+        stage('UI Test') {
+            agent {
+                docker {
+                    image 'python'
+                }
+            }
             steps {
-                sh 'echo \'BlazeMeter\''
-//                 blazeMeterTest credentialsId: '1451217',
-//                     serverUrl: 'https://a.blazemeter.com',
-//                     workspaceId: '1606426',
-//                     testId: '12485056',
-//                     notes: 'Run UI Tests',
-//                     sessionProperties: '',
-//                     jtlPath: '',
-//                     junitPath: '',
-//                     getJtl: false,
-//                     getJunit: false
+                sh 'python -m venv venv'
+                sh 'source venv/bin/activate'
+                sh 'python src/test/python/SpringBootDemoAppTests.py'
             }
         }
     }
