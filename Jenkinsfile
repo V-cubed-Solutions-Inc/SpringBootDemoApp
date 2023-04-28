@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage ('Check COVER Config') {
             steps {
-                sh 'sh src/test/resources/check-cover.sh'
+                sh 'sh ./src/test/check-cover.sh'
             }
         }
 
