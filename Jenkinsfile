@@ -56,12 +56,5 @@ pipeline {
                     ]
             }
         }
-
-        // Run function UI tests on app
-        stage('UI Test') {
-            steps {
-                sh 'python'
-            }
-        }
     }
 }
