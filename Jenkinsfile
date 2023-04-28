@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        python 'Python 3.9.6'
-    }
-
     stages {
         stage ('Check COVER Config') {
             steps {
@@ -54,6 +50,12 @@ pipeline {
                             verbose: true
                         ]
                     ]
+            }
+        }
+
+        stage ('Test') {
+            steps {
+                sh 'python3 --version'
             }
         }
     }
