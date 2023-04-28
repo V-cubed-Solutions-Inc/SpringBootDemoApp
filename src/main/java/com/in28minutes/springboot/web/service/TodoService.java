@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class TodoService {
@@ -104,6 +105,10 @@ public class TodoService {
             String status,
             String notes
     ) {
+        UUID uuid = UUID.randomUUID();
+        String uuidStr = uuid.toString();
+        description = description.concat("\n" + uuidStr);
+
         todos.add(
                 new Todo(
                         ++todoCount,
