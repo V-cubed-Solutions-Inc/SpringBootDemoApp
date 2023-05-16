@@ -28,22 +28,22 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<exclusions>
-				<!-- Remove logback-classic in spring-boot-starter-web with COVER build -->
-				<exclusion>
-					<groupId>ch.qos.logback</groupId>
-					<artifactId>logback-classic</artifactId>
-				</exclusion>
-			</exclusions>
+<!--			<exclusions>-->
+<!--				&lt;!&ndash; Remove logback-classic in spring-boot-starter-web with COVER build &ndash;&gt;-->
+<!--				<exclusion>-->
+<!--					<groupId>ch.qos.logback</groupId>-->
+<!--					<artifactId>logback-classic</artifactId>-->
+<!--				</exclusion>-->
+<!--			</exclusions>-->
 		</dependency>
 
 		<!-- Required for Cloud COVER build-->
-		<dependency>
-			<groupId>com.qualityscroll.caas</groupId>
-			<artifactId>jacov-maven-plugin</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.qualityscroll.caas</groupId>-->
+<!--			<artifactId>jacov-maven-plugin</artifactId>-->
+<!--			<version>1.0.0-SNAPSHOT</version>-->
+<!--			<scope>compile</scope>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -141,6 +141,15 @@
 		
 		<plugins>
 			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>4.3.0</version>
+				<configuration>
+					<repoToken>T4UDgHuVZbdlyAKIi2TloejSZuqv7ybYB</repoToken>
+				</configuration>
+			</plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>2.5.1</version>
@@ -158,13 +167,27 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.12.4</version>
-				<configuration>
-					<additionalClasspathElements>
-						<additionalClasspathElement>${basedir}\src\test\resources\java-runtime.jar</additionalClasspathElement>
-					</additionalClasspathElements>
-					<jvm>"-javaagent:${basedir}\src\test\resources\java-runtime.jar"</jvm>
-				</configuration>
+<!--				<configuration>-->
+<!--					<additionalClasspathElements>-->
+<!--						<additionalClasspathElement>${basedir}\src\test\resources\java-runtime.jar</additionalClasspathElement>-->
+<!--					</additionalClasspathElements>-->
+<!--					<jvm>"-javaagent:${basedir}\src\test\resources\java-runtime.jar"</jvm>-->
+<!--				</configuration>-->
 			</plugin>
+
+<!--			<plugin>-->
+<!--				<groupId>org.jacoco</groupId>-->
+<!--				<artifactId>jacoco-maven-plugin</artifactId>-->
+<!--				<version>0.7.6.201602180812</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<id>prepare-agent</id>-->
+<!--						<goals>-->
+<!--							<goal>prepare-agent</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 </project>
