@@ -2,10 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage ('Build') {
+        stage ('Build & Test') {
             steps {
-                // Build war file
-                sh 'sh /opt/apache-maven-3.9.1-bin/apache-maven-3.9.1/bin/mvn -Dmaven.test.failure.ignore=true clean compile package'
+                sh 'sh /opt/apache-maven-3.9.1-bin/apache-maven-3.9.1/bin/mvn -Dmaven.test.failure.ignore=true -DrepoToken=T4UDgHuVZbdlyAKIi2TloejSZuqv7ybYB clean test jacoco:report coveralls:report compile package'
             }
         }
 
@@ -40,13 +39,6 @@ pipeline {
                             verbose: true
                         ]
                     ]
-            }
-        }
-
-        stage ('Test') {
-            steps {
-                // Build war file
-                sh 'sh /opt/apache-maven-3.9.1-bin/apache-maven-3.9.1/bin/mvn test'
             }
         }
     }
