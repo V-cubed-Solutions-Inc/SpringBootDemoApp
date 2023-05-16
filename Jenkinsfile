@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage ('Build & Test') {
             steps {
-                sh 'sh /opt/apache-maven-3.9.1-bin/apache-maven-3.9.1/bin/mvn -Dmaven.test.failure.ignore=true -DrepoToken=T4UDgHuVZbdlyAKIi2TloejSZuqv7ybYB clean test jacoco:report coveralls:report compile package'
+                sh 'sh /opt/apache-maven-3.9.1-bin/apache-maven-3.9.1/bin/mvn -Dmaven.test.failure.ignore=true -DrepoToken=T4UDgHuVZbdlyAKIi2TloejSZuqv7ybYB clean jacoco:report coveralls:report compile package'
             }
         }
 
