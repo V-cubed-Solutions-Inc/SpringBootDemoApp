@@ -25,7 +25,7 @@ public class SpringBootFirstWebApplicationTests {
 
     @Before
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/test/driver/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/test/driver/chromedriver");
         driver = new ChromeDriver();
     }
 
