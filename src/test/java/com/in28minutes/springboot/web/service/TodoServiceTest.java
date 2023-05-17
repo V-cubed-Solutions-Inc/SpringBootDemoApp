@@ -18,14 +18,14 @@ public class TodoServiceTest {
     @Before
     public void setUp() {
         todoService = new TodoService();
-        todoService.addTodo("Test todo 1", "Test description 1", 2, new Date(), "Pending", "");
-        todoService.addTodo("Test todo 2", "Test description 2", 3, new Date(), "Done", "");
-        todoService.addTodo("Test todo 3", "Test description 3", 1, new Date(), "Pending", "");
+        todoService.addTodo("DemoAdmin", "Test description 1", 2, new Date(), "Pending", "");
+        todoService.addTodo("DemoAdmin", "Test description 2", 3, new Date(), "Done", "");
+        todoService.addTodo("DemoAdmin", "Test description 3", 1, new Date(), "Pending", "");
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, 2023);
-        calendar.set(Calendar.MONTH, 3);
-        calendar.set(Calendar.DATE, 18);
+        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
+        calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
+        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE));
         testDate = calendar.getTime();
     }
     @After
@@ -35,71 +35,37 @@ public class TodoServiceTest {
 
     @Test
     public void testRetrieveTodos() {
-//        List<Todo> todos = todoService.retrieveTodos("DemoAdmin");
-//        assertEquals(3, todos.size());
-//
-//        todos = todoService.retrieveTodos("testuser");
-//        assertEquals(0, todos.size());
-//
-//        todos = todoService.retrieveTodos("");
-//        assertEquals(0, todos.size());
-//
-//        todos = todoService.retrieveTodos(null);
-//        assertEquals(0, todos.size());
+        List<Todo> todos = todoService.retrieveTodos("DemoAdmin");
+        assertEquals(3, todos.size());
     }
 
     @Test
     public void testRetrieveDailyHours() {
-//        int dailyHours = todoService.retrieveDailyHours("DemoAdmin", testDate);
-//        assertEquals(6, dailyHours);
-//
-//        dailyHours = todoService.retrieveDailyHours("testuser", testDate);
-//        assertEquals(0, dailyHours);
-//
-//        dailyHours = todoService.retrieveDailyHours("", testDate);
-//        assertEquals(0, dailyHours);
-//
-//        dailyHours = todoService.retrieveDailyHours(null, testDate);
-//        assertEquals(0, dailyHours);
+        int dailyHours = todoService.retrieveDailyHours("DemoAdmin", testDate);
+        assertEquals(6, dailyHours);
     }
 
     @Test
     public void testRetrieveWeeklyHours() {
-//        int weeklyHours = todoService.retrieveWeeklyHours("DemoAdmin", testDate);
-//        assertEquals(6, weeklyHours);
-//
-//        weeklyHours = todoService.retrieveWeeklyHours("testuser", testDate);
-//        assertEquals(0, weeklyHours);
-//
-//        weeklyHours = todoService.retrieveWeeklyHours("", testDate);
-//        assertEquals(0, weeklyHours);
-//
-//        weeklyHours = todoService.retrieveWeeklyHours(null, testDate);
-//        assertEquals(0, weeklyHours);
+        int weeklyHours = todoService.retrieveWeeklyHours("DemoAdmin", testDate);
+        assertEquals(6, weeklyHours);
     }
 
     @Test
     public void testGetDatesOfWeek() {
-//        List<Date> dates = todoService.getDatesOfWeek(testDate);
-//        assertEquals(5, dates.size());
-//
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTime(testDate);
-//        assertEquals(calendar.get(Calendar.DATE), dates.get(2).getDate());
-//
-//        // Test for different days of the week
-//        calendar.set(Calendar.DATE, 19);
-//        testDate = calendar.getTime();
-//        dates = todoService.getDatesOfWeek(testDate);
-//        assertEquals(5, dates.size());
-//        assertEquals(calendar.get(Calendar.DATE), dates.get(3).getDate());
+        List<Date> dates = todoService.getDatesOfWeek(testDate);
+        assertEquals(5, dates.size());
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(testDate);
+        assertEquals(calendar.get(Calendar.DATE), dates.get(2).getDate());
     }
 
     @Test
     public void testRetrieveTodo() {
-//        Todo todo = todoService.retrieveTodo(1);
-//        assertNotNull(todo);
-//        assertEquals("Test todo 1", todo.getUser());
+        Todo todo = todoService.retrieveTodo(1);
+        assertNotNull(todo);
+        assertEquals("DemoAdmin", todo.getUser());
 //
 //        todo = todoService.retrieveTodo(100);
 //        assertNull(todo);
@@ -120,9 +86,9 @@ public class TodoServiceTest {
 
     @Test
     public void deleteTodo() {
-//        todoService.deleteTodo(1);
-//        Todo todo = todoService.retrieveTodo(1);
-//        assertNotNull(todo);
+        todoService.deleteTodo(1);
+        List<Todo> todos = todoService.retrieveTodos("DemoAdmin");
+        assertEquals(2, todos.size());
     }
 
 }

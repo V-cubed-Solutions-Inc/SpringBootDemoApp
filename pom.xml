@@ -22,34 +22,27 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<sonar.organization>v-cubed-solutions-inc</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-<!--			<exclusions>-->
-<!--				&lt;!&ndash; Remove logback-classic in spring-boot-starter-web with COVER build &ndash;&gt;-->
-<!--				<exclusion>-->
-<!--					<groupId>ch.qos.logback</groupId>-->
-<!--					<artifactId>logback-classic</artifactId>-->
-<!--				</exclusion>-->
-<!--			</exclusions>-->
 		</dependency>
-
-		<!-- Required for Cloud COVER build-->
-<!--		<dependency>-->
-<!--			<groupId>com.qualityscroll.caas</groupId>-->
-<!--			<artifactId>jacov-maven-plugin</artifactId>-->
-<!--			<version>1.0.0-SNAPSHOT</version>-->
-<!--			<scope>compile</scope>-->
-<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>3.8.1</version>
+		</dependency> 
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -167,18 +160,12 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.12.4</version>
-<!--				<configuration>-->
-<!--					<additionalClasspathElements>-->
-<!--						<additionalClasspathElement>${basedir}\src\test\resources\java-runtime.jar</additionalClasspathElement>-->
-<!--					</additionalClasspathElements>-->
-<!--					<jvm>"-javaagent:${basedir}\src\test\resources\java-runtime.jar"</jvm>-->
-<!--				</configuration>-->
 			</plugin>
 
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.6.201602180812</version>
+				<version>0.8.10</version>
 				<executions>
 					<execution>
 						<id>prepare-agent</id>

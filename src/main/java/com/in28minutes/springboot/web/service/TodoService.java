@@ -3,6 +3,8 @@ package com.in28minutes.springboot.web.service;
 import com.in28minutes.springboot.web.model.Todo;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -25,10 +27,18 @@ public class TodoService {
         return filteredTodos;
     }
 
+    public Boolean isSameDay(Date current, Date reference) {
+        Instant instant1 = current.toInstant()
+                .truncatedTo(ChronoUnit.DAYS);
+        Instant instant2 = reference.toInstant()
+                .truncatedTo(ChronoUnit.DAYS);
+        return instant1.equals(instant2);
+    }
+
     public int retrieveDailyHours(String user, Date date) {
         int dailyHours = 0;
         for (Todo todo : todos) {
-            if (todo.getUser().equalsIgnoreCase(user) && date.equals(todo.getDate())) {
+            if (todo.getUser().equalsIgnoreCase(user) && isSameDay(date, todo.getDate())) {
                 dailyHours += todo.getHoursRequired();
             }
         }
