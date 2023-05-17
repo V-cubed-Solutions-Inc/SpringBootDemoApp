@@ -107,6 +107,11 @@
 			<artifactId>selenium-java</artifactId>
 			<version>4.9.0</version>
 		</dependency>
+
+		<properties>
+			<sonar.organization>v-cubed-solutions-inc</sonar.organization>
+			<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		</properties>
 	</dependencies>
 
 	<build>
