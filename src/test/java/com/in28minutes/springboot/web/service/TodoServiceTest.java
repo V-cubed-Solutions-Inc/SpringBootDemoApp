@@ -18,6 +18,11 @@ public class TodoServiceTest {
     @Before
     public void setUp() {
         todoService = new TodoService();
+        // Clear all TODOs
+        List<Todo> todos = todoService.retrieveTodos("DemoAdmin");
+        for (Todo todo : todos) {
+            todoService.deleteTodo(todo.getId());
+        }
         todoService.addTodo("DemoAdmin", "Test description 1", 2, new Date(), "Pending", "");
         todoService.addTodo("DemoAdmin", "Test description 2", 3, new Date(), "Done", "");
         todoService.addTodo("DemoAdmin", "Test description 3", 1, new Date(), "Pending", "");
