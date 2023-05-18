@@ -50,12 +50,12 @@ public class TodoController {
 
     @RequestMapping(value = "/list-todos", method = RequestMethod.GET)
     public String showTodos(ModelMap model) {
-        String name = getLoggedInUserName(model);
+        String name = getLoggedInUserName();
         model.put("todos", service.retrieveTodos(name));
         return "list-todos";
     }
 
-    private String getLoggedInUserName(ModelMap model) {
+    private String getLoggedInUserName() {
         Object principal = SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
 
@@ -71,7 +71,7 @@ public class TodoController {
         model.addAttribute(
                 "todo",
                 new Todo(
-                        0, getLoggedInUserName(model),
+                        0, getLoggedInUserName(),
                         "Description",
                         1,
                         new Date(),
@@ -96,18 +96,18 @@ public class TodoController {
     }
 
     @RequestMapping(value = "/update-todo", method = RequestMethod.POST)
-    public String updateTodo(ModelMap model, @Valid Todo todo,
+    public String updateTodo(@Valid Todo todo,
                              BindingResult result) {
 
         if (result.hasErrors()) {
             return "todo";
         }
 
-        todo.setUser(getLoggedInUserName(model));
+        todo.setUser(getLoggedInUserName());
 
         service.updateTodo(todo);
-        int dailyHours = service.retrieveDailyHours(getLoggedInUserName(model), todo.getDate());
-        int weeklyHours = service.retrieveWeeklyHours(getLoggedInUserName(model), todo.getDate());
+        int dailyHours = service.retrieveDailyHours(getLoggedInUserName(), todo.getDate());
+        int weeklyHours = service.retrieveWeeklyHours(getLoggedInUserName(), todo.getDate());
         if (dailyHours > 10 && !overtimeAllowed) {
             ObjectError error = new ObjectError("hoursRequired", "You already have 8 hours of work for the specified date and your manager doesn't allow you overtime.");
             result.rejectValue(error.getObjectName(), error.getCode(), error.getDefaultMessage());
@@ -125,9 +125,9 @@ public class TodoController {
     }
 
     @RequestMapping(value = "/add-todo", method = RequestMethod.POST)
-    public String addTodo(ModelMap model, @Valid Todo todo, BindingResult result) {
-        int dailyHours = service.retrieveDailyHours(getLoggedInUserName(model), todo.getDate());
-        int weeklyHours = service.retrieveWeeklyHours(getLoggedInUserName(model), todo.getDate());
+    public String addTodo(@Valid Todo todo, BindingResult result) {
+        int dailyHours = service.retrieveDailyHours(getLoggedInUserName(), todo.getDate());
+        int weeklyHours = service.retrieveWeeklyHours(getLoggedInUserName(), todo.getDate());
         if (dailyHours + todo.getHoursRequired() > 10 && !overtimeAllowed) {
             ObjectError error = new ObjectError("hoursRequired", "You already have 10 hours of work for the specified date and your manager doesn't allow you overtime.");
             result.rejectValue(error.getObjectName(), error.getCode(), error.getDefaultMessage());
@@ -141,7 +141,7 @@ public class TodoController {
         }
 
         service.addTodo(
-                getLoggedInUserName(model),
+                getLoggedInUserName(),
                 todo.getDescription(),
                 todo.getHoursRequired(),
                 todo.getDate(),

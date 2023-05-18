@@ -3,6 +3,7 @@ package com.in28minutes.springboot.web;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,7 +53,8 @@ public class SpringBootFirstWebApplicationTests {
     @Test
     public void testLoginFailure() {
         login(false, false);
-        assert driver.getPageSource().contains("Your login attempt was not successful, try again.");
+        String pageSource = driver.getPageSource();
+        Assert.assertTrue(pageSource.contains("Your login attempt was not successful, try again."));
     }
 
     @Test
