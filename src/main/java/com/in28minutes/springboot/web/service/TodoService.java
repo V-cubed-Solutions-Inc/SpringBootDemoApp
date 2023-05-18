@@ -133,12 +133,6 @@ public class TodoService {
     }
 
     public void deleteTodo(int id) {
-        Iterator<Todo> iterator = todos.iterator();
-        while (iterator.hasNext()) {
-            Todo todo = iterator.next();
-            if (todo.getId() == id) {
-                iterator.remove();
-            }
-        }
+        todos.removeIf(todo -> todo.getId() == id);
     }
 }

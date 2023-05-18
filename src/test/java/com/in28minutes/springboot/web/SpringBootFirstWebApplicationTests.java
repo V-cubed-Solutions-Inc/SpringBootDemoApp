@@ -12,6 +12,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,13 +23,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class SpringBootFirstWebApplicationTests {
     private final String overtimeWarning = "You already have 10 hours of work for the specified date and your manager doesn't allow you overtime.";
-    private final String protocol = "https";
-    private final String serverHost = "music.v-cubedsolutions.com";
+    private final String protocol = "http";
+    private final String serverHost = "127.0.0.1";
     private final String serverPort = "8082";
     private WebDriver driver;
+    private ConfigurableApplicationContext appContext;
 
     @Before
     public void setUp() {
+        appContext = SpringApplication.run(SpringBootFirstWebApplication.class);
         System.setProperty("webdriver.chrome.driver", "src/test/driver/chromedriver");
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
@@ -67,6 +71,8 @@ public class SpringBootFirstWebApplicationTests {
 
     @After
     public void tearDown() {
+        appContext.stop();
+        appContext.close();
         driver.quit();
     }
 

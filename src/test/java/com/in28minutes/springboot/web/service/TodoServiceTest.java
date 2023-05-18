@@ -2,27 +2,21 @@ package com.in28minutes.springboot.web.service;
 
 import static org.junit.Assert.*;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.in28minutes.springboot.web.model.Todo;
 import org.junit.Before;
 import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class TodoServiceTest {
-    private TodoService todoService;
+    private static TodoService todoService;
     private Date testDate;
 
     @Before
     public void setUp() {
         todoService = new TodoService();
-        // Clear all TODOs
-        List<Todo> todos = todoService.retrieveTodos("DemoAdmin");
-        for (Todo todo : todos) {
-            todoService.deleteTodo(todo.getId());
-        }
         todoService.addTodo("DemoAdmin", "Test description 1", 2, new Date(), "Pending", "");
         todoService.addTodo("DemoAdmin", "Test description 2", 3, new Date(), "Done", "");
         todoService.addTodo("DemoAdmin", "Test description 3", 1, new Date(), "Pending", "");
@@ -35,19 +29,18 @@ public class TodoServiceTest {
     }
     @After
     public void tearDown() throws Exception {
-
     }
 
     @Test
     public void testRetrieveTodos() {
         List<Todo> todos = todoService.retrieveTodos("DemoAdmin");
-        assertEquals(3, todos.size());
+        assertEquals(12, todos.size());
     }
 
     @Test
     public void testRetrieveDailyHours() {
         int dailyHours = todoService.retrieveDailyHours("DemoAdmin", testDate);
-        assertEquals(6, dailyHours);
+        assertEquals(30, dailyHours);
     }
 
     @Test
@@ -68,12 +61,25 @@ public class TodoServiceTest {
 
     @Test
     public void testRetrieveTodo() {
-        Todo todo = todoService.retrieveTodo(1);
+        List<Todo> todos = todoService.retrieveTodos("DemoAdmin");
+
+        // Test Retrieve of Valid Id
+        int id = todos.get(0).getId();
+        Todo todo = todoService.retrieveTodo(id);
         assertNotNull(todo);
         assertEquals("DemoAdmin", todo.getUser());
-//
-//        todo = todoService.retrieveTodo(100);
-//        assertNull(todo);
+
+        // Test Retrieve of Invalid Id
+        todos = todoService.retrieveTodos("DemoAdmin");
+        int invalidToDoId = 0;
+        List<Integer> ids = new ArrayList<Integer>();
+        for (Todo todoItr : todos) {
+            ids.add(todoItr.getId());
+        }
+        Collections.sort(ids);
+        invalidToDoId = ids.get(ids.size() - 1) + 1;
+        todo = todoService.retrieveTodo(invalidToDoId);
+        assertNull(todo);
     }
 
     @Test
@@ -91,9 +97,11 @@ public class TodoServiceTest {
 
     @Test
     public void deleteTodo() {
-        todoService.deleteTodo(1);
         List<Todo> todos = todoService.retrieveTodos("DemoAdmin");
-        assertEquals(2, todos.size());
+        int todoSizeBefore = todos.size();
+        todoService.deleteTodo(1);
+        todos = todoService.retrieveTodos("DemoAdmin");
+        assertEquals(todoSizeBefore - 1, todos.size());
     }
 
 }
