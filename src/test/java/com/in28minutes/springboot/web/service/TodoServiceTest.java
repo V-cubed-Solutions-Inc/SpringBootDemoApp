@@ -2,8 +2,11 @@ package com.in28minutes.springboot.web.service;
 
 import static org.junit.Assert.*;
 
+import java.time.ZoneId;
+import java.time.temporal.TemporalAccessor;
 import java.util.*;
 
+import com.in28minutes.springboot.web.SpringBootFirstWebApplication;
 import com.in28minutes.springboot.web.model.Todo;
 import org.junit.Before;
 import org.junit.After;
@@ -14,17 +17,21 @@ public class TodoServiceTest {
     private static TodoService todoService;
     private Date testDate;
 
+    private static int todoCnt = 0;
+
     @Before
     public void setUp() {
         todoService = new TodoService();
         todoService.addTodo("DemoAdmin", "Test description 1", 2, new Date(), "Pending", "");
         todoService.addTodo("DemoAdmin", "Test description 2", 3, new Date(), "Done", "");
         todoService.addTodo("DemoAdmin", "Test description 3", 1, new Date(), "Pending", "");
+        todoCnt += 3;
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
         calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE));
+        calendar.setTimeZone(TimeZone.getTimeZone("EST"));
         testDate = calendar.getTime();
     }
     @After
@@ -34,7 +41,7 @@ public class TodoServiceTest {
     @Test
     public void testRetrieveTodos() {
         List<Todo> todos = todoService.retrieveTodos("DemoAdmin");
-        assertEquals(12, todos.size());
+        assertEquals(todoCnt, todos.size());
     }
 
     @Test
@@ -55,8 +62,10 @@ public class TodoServiceTest {
         assertEquals(5, dates.size());
 
         Calendar calendar = Calendar.getInstance();
+        Calendar calendar1 = Calendar.getInstance();
         calendar.setTime(testDate);
-        assertEquals(calendar.get(Calendar.DATE), dates.get(2).getDate());
+        calendar1.setTime(dates.get(2));
+        assertEquals(calendar.get(Calendar.DAY_OF_MONTH), calendar1.get(Calendar.DAY_OF_MONTH));
     }
 
     @Test
