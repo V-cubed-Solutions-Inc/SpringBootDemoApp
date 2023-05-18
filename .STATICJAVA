@@ -194,10 +194,5 @@
         "binaries": []
       }
     }
-  ],
-  "EXTRA_OPTIONS" : {
-    "ASSIGN_TO_COMMITTER": {
-      "enable": true
-    }
-  }
+  ]
 }
